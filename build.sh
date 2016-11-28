@@ -39,13 +39,9 @@ DEVICE="$1"
 	./prebuilts/sdk/tools/jack-admin kill-server
 	./prebuilts/sdk/tools/jack-admin start-server
 
-# Optionally, you may want to clear CCACHE if you still have issues
-#	ccache -C
-
 # Make a clean build, building dirty after you have had jack issues may result in a failed build
 	make clean
 
 # Compile the build
 	. build/envsetup.sh
-	lunch du_$DEVICE-userdebug
-	make bacon
+	brunch <device-name>
