@@ -27,21 +27,24 @@
 DEVICE="$1"
 
 # Tell the environment not to use NINJA
-	export USE_NINJA=false
+#       export USE_NINJA=false
 
 # Delete the JACK server located in /home/<USER>/.jack*
-	rm -rf ~/.jack*
+        rm -rf ~/.jack*
 
 # Resize the JACK Heap size
-	export ANDROID_JACK_VM_ARGS="-Xmx4g -Dfile.encoding=UTF-8 -XX:+TieredCompilation"
+        export ANDROID_JACK_VM_ARGS="-Xmx4g -Dfile.encoding=UTF-8 -XX:+TieredCompilation"
 
 # Restart the JACK server
-	./prebuilts/sdk/tools/jack-admin kill-server
-	./prebuilts/sdk/tools/jack-admin start-server
+        ./prebuilts/sdk/tools/jack-admin kill-server
+        ./prebuilts/sdk/tools/jack-admin start-server
+
+# Optionally, you may want to clear CCACHE if you still have issues#        ccache -C
+#        export USE_CCACHE=1
+#        prebuilts/misc/linux-x86/ccache/ccache -M 50G
 
 # Make a clean build, building dirty after you have had jack issues may result in a failed build
-	make clean
+#       make clean
 
 # Compile the build
-	. build/envsetup.sh
-	brunch <device-name>
+        . build/envsetup.sh && lunch du_mido-userdebug && mka bacon
